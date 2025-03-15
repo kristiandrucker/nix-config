@@ -118,9 +118,9 @@
     formatter = forEachSystem (pkgs: pkgs.alejandra);
 
     nixosConfigurations = {
-        # NS1 Server
-        ns1 = lib.nixosSystem {
-            modules = [./hosts/ns1];
+        # Core Server
+        core = lib.nixosSystem {
+            modules = [./hosts/core];
             specialArgs = {
                 inherit inputs outputs;
             };
