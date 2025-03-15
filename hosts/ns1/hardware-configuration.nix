@@ -36,6 +36,6 @@
   virtualisation.hypervGuest.enable = true;
   systemd.services.hv-kvp.unitConfig.ConditionPathExists = ["/dev/vmbus/hv_kvp"];
 
-  nixpkgs.hostPlatform = "x86_64-linux";
+  nixpkgs.hostPlatform = "aarch64-linux";
 }
 
