@@ -31,9 +31,9 @@
     }
   ];
 
-  hardware.cpu.intel.updateMicrocode = true;
+#  hardware.cpu.intel.updateMicrocode = true;
 
-  virtualisation.hypervGuest.enable = true;
+#  virtualisation.hypervGuest.enable = true;
   systemd.services.hv-kvp.unitConfig.ConditionPathExists = ["/dev/vmbus/hv_kvp"];
 
   nixpkgs.hostPlatform = "aarch64-linux";
