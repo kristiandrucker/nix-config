@@ -2,7 +2,7 @@
 {modulesPath, inputs, config, ...}: {
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")
-    inputs.disko.nixosModules.disko
+#    inputs.disko.nixosModules.disko
     ../common/optional/ephemeral-btrfs.nix
   ];
 
@@ -44,7 +44,7 @@
             extraArgs = [ "-L${config.networking.hostName}" ];
             postCreateHook = ''
               MNTPOINT=$(mktemp -d)
-              mount -t btrfs "${config.disko.devices.disk.main.content.partitions.taygeta.device}" "$MNTPOINT"
+              mount -t btrfs "${config.disko.devices.disk.main.content.partitions.core.device}" "$MNTPOINT"
               trap 'umount $MNTPOINT; rm -d $MNTPOINT' EXIT
               btrfs subvolume snapshot -r $MNTPOINT/root $MNTPOINT/root-blank
             '';
