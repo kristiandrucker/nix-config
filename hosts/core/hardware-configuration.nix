@@ -1,8 +1,7 @@
-
 {modulesPath, inputs, config, ...}: {
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")
-#    inputs.disko.nixosModules.disko
+    inputs.disko.nixosModules.disko
     ../common/optional/ephemeral-btrfs.nix
   ];
 
