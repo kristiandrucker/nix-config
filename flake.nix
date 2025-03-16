@@ -5,7 +5,9 @@
     extra-substituters = [
         "http://cache.drkr.io"
     ];
-    extra-trusted-public-keys = [];
+    extra-trusted-public-keys = [
+        "cache.drkr.io:KFcXrcoqTQdwwoUgzmKTLg1x2Hz60u5w1GqwBWXURQM="
+    ];
   };
 
   inputs = {
