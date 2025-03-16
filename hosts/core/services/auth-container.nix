@@ -47,15 +47,15 @@
   };
   
   # Ensure the data directory exists with correct permissions
-  systemd.tmpfiles.rules = [
-    "d /persist/var/lib/auth-data 0750 root root - -"
-  ];
+#  systemd.tmpfiles.rules = [
+#    "d /persist/var/lib/auth-data 0750 root root - -"
+#  ];
   
   # Add documentation about this container
-  programs.bash.interactiveShellInit = ''
-    # Add info about auth container
-    echo "Auth container available at http://localhost:8080"
-  '';
+#  programs.bash.interactiveShellInit = ''
+#    # Add info about auth container
+#    echo "Auth container available at http://localhost:8080"
+#  '';
   
   # Expose through nginx proxy
   services.nginx.virtualHosts."auth.${config.domains.root}" = {
