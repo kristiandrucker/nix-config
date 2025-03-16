@@ -6,7 +6,7 @@ keys:
   - &hosts:
     - &core age14hpcyjldl3pa9jqmtn5sqsx85pyak84nq3a4cacktcednyklav0qkq697e
 #    - &media age1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-#    - &builder age1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    - &builder age1kjl5ch4jaksd5d39z69hffztgyga9yg40lrfsz8wetrs8lz43emqflxpxh
 #    - &public-1 age1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 #    - &public-2 age1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 #    - &dvr age1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -28,7 +28,7 @@ creation_rules:
   - path_regex: hosts/builder/secrets.ya?ml$
     key_groups:
     - age:
-#      - *builder
+      - *builder
       - *kristian
 
   - path_regex: hosts/public-1/secrets.ya?ml$
@@ -60,7 +60,7 @@ creation_rules:
     - age:
       - *core
 #      - *media
-#      - *builder
+      - *builder
 #      - *public-1
 #      - *public-2
 #      - *dvr

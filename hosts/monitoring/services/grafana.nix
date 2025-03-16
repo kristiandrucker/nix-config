@@ -35,7 +35,7 @@
       # Add our data sources
       datasources.settings.datasources = [
         {
-          name = "Prometheus";
+          name = "prometheus";
           type = "prometheus";
           url = "http://localhost:${toString config.services.prometheus.port}";
           isDefault = true;

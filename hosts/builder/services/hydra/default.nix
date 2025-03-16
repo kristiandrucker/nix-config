@@ -2,48 +2,50 @@
   config,
   pkgs,
   ...
-}: {
-  imports = [
-    ./machines.nix
-  ];
+}: let
+  hydraUser = config.users.users.hydra.name;
+  hydraGroup = config.users.users.hydra.group;
+in {
+  imports = [./machines.nix];
+
+  # https://github.com/NixOS/nix/issues/4178#issuecomment-738886808
+  systemd.services.hydra-evaluator.environment.GC_DONT_GC = "true";
 
   # Enable Hydra service
   services.hydra = {
     enable = true;
+    package = pkgs.hydra_unstable;
     hydraURL = "https://hydra.${config.domains.root}";
     notificationSender = "hydra@${config.domains.root}";
     port = 3000;
-    buildMachinesFiles = [];
+#    buildMachinesFiles = [];
     useSubstitutes = true;
-    logo = null;
+#    dbi = "dbi:Pg:dbname=hydra;user=postgres;";
+#    logo = null;
     
     # Configure Hydra with GitHub integration
-    extraConfig = ''
-      <githubstatus>
-        jobs = .*
-        useShortContext = true
-      </githubstatus>
-      
-      <trace>
-        postgresql-uri = dbi:Pg:dbname=hydra;user=hydra;
-        queue-runner-count = 1
-        gc-roots-dir = /nix/var/nix/gcroots/hydra
-      </trace>
-      
-      <hydra_notify>
-        <prometheus>
-          listen_address = 127.0.0.1
-          port = 9199
-        </prometheus>
-      </hydra_notify>
-    '';
+#    extraConfig =
+#      /*
+#      xml
+#      */
+#      ''
+#        Include ${config.sops.secrets.hydra-gh-auth.path}
+#        max_unsupported_time = 30
+#        <githubstatus>
+#          jobs = .*
+#          useShortContext = true
+#        </githubstatus>
+#      '';
+    extraEnv = {
+      HYDRA_DISALLOW_UNFREE = "0";
+    };
   };
 
   # Expose Hydra through NGINX
   services.nginx.virtualHosts = {
     "hydra.${config.domains.root}" = {
-      enableACME = true;
-      forceSSL = true;
+      enableACME = false;
+      forceSSL = false;
       
       locations."/".extraConfig = ''
         proxy_pass http://localhost:${toString config.services.hydra.port};
@@ -54,22 +56,14 @@
     };
   };
 
-  # Add a PostgreSQL database for Hydra
-  services.postgresql = {
-    enable = true;
-    ensureDatabases = ["hydra"];
-    ensureUsers = [
-      {
-        name = "hydra";
-        ensurePermissions."DATABASE hydra" = "ALL PRIVILEGES";
-      }
-    ];
+  users.users = {
+    hydra-queue-runner.extraGroups = [hydraGroup];
+    hydra-www.extraGroups = [hydraGroup];
   };
 
   # Persist Hydra data
   environment.persistence."/persist".directories = [
     "/var/lib/hydra"
-    "/var/lib/postgresql"
   ];
   
   # Open Prometheus metrics port for Tailscale access only

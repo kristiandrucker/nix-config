@@ -2,7 +2,9 @@
   description = "My NixOS configuration";
 
   nixConfig = {
-    extra-substituters = [];
+    extra-substituters = [
+        "http://cache.drkr.io"
+    ];
     extra-trusted-public-keys = [];
   };
 
