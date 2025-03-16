@@ -34,13 +34,13 @@
 #        DB_PASSWORD_FILE = "/run/secrets/auth_container_db_password";
       };
       # Mount a persistent volume for data and secrets
-      volumes = [
+#      volumes = [
 #        "/persist/var/lib/auth-data:/data"
 #        "${config.sops.secrets."auth_container/admin_password".path}:/run/secrets/auth_container_admin_password"
 #        "${config.sops.secrets."auth_container/db_password".path}:/run/secrets/auth_container_db_password"
-      ];
+#      ];
       extraOptions = [
-        "--network=host"
+#        "--network=host"
         "--restart=unless-stopped"
       ];
     };
