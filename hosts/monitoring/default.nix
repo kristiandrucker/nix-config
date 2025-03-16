@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   imports = [
@@ -12,7 +17,7 @@
   ];
 
   networking = {
-    hostName = "core";
+    hostName = "monitoring";
     useDHCP = true;
   };
 

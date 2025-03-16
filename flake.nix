@@ -125,52 +125,63 @@
                 inherit inputs outputs;
             };
         };
-
-#      # Main desktop
-#      atlas = lib.nixosSystem {
-#        modules = [./hosts/atlas];
-#        specialArgs = {
-#          inherit inputs outputs;
-#        };
-#      };
-#      # Personal laptop
-#      pleione = lib.nixosSystem {
-#        modules = [./hosts/pleione];
-#        specialArgs = {
-#          inherit inputs outputs;
-#        };
-#      };
-#      # Core server (Vultr)
-#      alcyone = lib.nixosSystem {
-#        modules = [./hosts/alcyone];
-#        specialArgs = {
-#          inherit inputs outputs;
-#        };
-#      };
-#      # Build and game server (Oracle)
-#      celaeno = lib.nixosSystem {
-#        modules = [./hosts/celaeno];
-#        specialArgs = {
-#          inherit inputs outputs;
-#        };
-#      };
-#      # Build and game server (Magalu Cloud)
-#      taygeta = lib.nixosSystem {
-#        modules = [./hosts/taygeta];
-#        specialArgs = {
-#          inherit inputs outputs;
-#        };
-#      };
-#      # Media server (RPi)
-#      merope = lib.nixosSystem {
-#        modules = [./hosts/merope];
-#        specialArgs = {
-#          inherit inputs outputs;
-#        };
-#      };
+        
+        # Media server with NVIDIA drivers
+        media = lib.nixosSystem {
+            modules = [./hosts/media];
+            specialArgs = {
+                inherit inputs outputs;
+            };
+        };
+        
+        # Builder with Hydra and Nix cache
+        builder = lib.nixosSystem {
+            modules = [./hosts/builder];
+            specialArgs = {
+                inherit inputs outputs;
+            };
+        };
+        
+        # Public-facing VM servers with DNS and NTP
+        public-1 = lib.nixosSystem {
+            modules = [./hosts/public-1];
+            specialArgs = {
+                inherit inputs outputs;
+            };
+        };
+        
+        public-2 = lib.nixosSystem {
+            modules = [./hosts/public-2];
+            specialArgs = {
+                inherit inputs outputs;
+            };
+        };
+        
+        # Digital Video Recorder (Raspberry Pi)
+        dvr = lib.nixosSystem {
+            modules = [./hosts/dvr];
+            specialArgs = {
+                inherit inputs outputs;
+            };
+        };
+        
+        # Monitoring server with Prometheus, Grafana, Loki, Tempo
+        monitoring = lib.nixosSystem {
+            modules = [./hosts/monitoring];
+            specialArgs = {
+                inherit inputs outputs;
+            };
+        };
     };
 
-#    homeConfigurations = {
+    homeConfigurations = {
+      "kristian@core" = lib.homeManagerConfiguration {
+        modules = [ ./home/kristian/generic.nix ];
+        pkgs = pkgsFor.x86_64-linux;
+        extraSpecialArgs = {
+            inherit inputs outputs;
+        };
+      };
 #      # Standalone HM only
 #      # Work laptop
 #      "gabriel@electra" = lib.homeManagerConfiguration {
@@ -229,6 +240,6 @@
 #          inherit inputs outputs;
 #        };
 #      };
-#    };
+    };
   };
 }

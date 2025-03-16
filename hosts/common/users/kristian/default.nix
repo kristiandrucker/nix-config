@@ -6,10 +6,13 @@
 }: let
   ifTheyExist = groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
 in {
+  programs.zsh.enable = true;
+
   users.mutableUsers = false;
   users.users.kristian = {
     isNormalUser = true;
-    shell = pkgs.bash;
+    # Use zsh as default shell
+    shell = pkgs.zsh;
     extraGroups = ifTheyExist [
       "audio"
       "deluge"
@@ -20,6 +23,7 @@ in {
       "lxd"
       "mysql"
       "network"
+      "networkmanager"
       "plugdev"
       "podman"
       "video"
@@ -28,18 +32,18 @@ in {
     ];
 
     openssh.authorizedKeys.keys = lib.splitString "\n" (builtins.readFile ../../../../home/kristian/ssh.pub);
-#    hashedPasswordFile = config.sops.secrets.gabriel-password.path;
-#    packages = [pkgs.home-manager];
+    password = config.sops.secrets.kristian-password.path;
   };
 
-#  sops.secrets.gabriel-password = {
-#    sopsFile = ../../secrets.yaml;
-#    neededForUsers = true;
-#  };
+  # Configure sudo without password
+  security.sudo.wheelNeedsPassword = false;
+  
+  # Setup SOPS secret for password
+  sops.secrets.kristian-password = {
+    sopsFile = ../../secrets.yaml;
+    neededForUsers = true;
+  };
 
-#  home-manager.users.gabriel = import ../../../../home/gabriel/${config.networking.hostName}.nix;
-
-#  security.pam.services = {
-#    swaylock = {};
-#  };
+  # Setup home-manager for the user
+  home-manager.users.kristian = import ../../../../home/kristian/generic.nix;
 }

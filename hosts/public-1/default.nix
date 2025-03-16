@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   imports = [
@@ -9,10 +14,12 @@
     ../common/users/kristian
     ../common/optional/fail2ban.nix
     ../common/optional/nginx.nix
+    ../common/optional/blocky-dns.nix
+    ../common/optional/ntp-server.nix
   ];
 
   networking = {
-    hostName = "core";
+    hostName = "public-1";
     useDHCP = true;
   };
 

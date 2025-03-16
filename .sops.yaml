@@ -1,0 +1,73 @@
+keys:
+  # Users
+  - &users:
+    - &kristian age198e00r627fttqxts3qmdrvenc60uw6e468rpnp0eh9juprps6gcq2vgh5h
+  # Hosts
+#  - &hosts:
+#    - &core age1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+#    - &media age1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+#    - &builder age1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+#    - &public-1 age1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+#    - &public-2 age1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+#    - &dvr age1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+#    - &monitoring age1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+creation_rules:
+  - path_regex: hosts/core/secrets.ya?ml$
+    key_groups:
+    - age:
+#      - *core
+      - *kristian
+
+  - path_regex: hosts/media/secrets.ya?ml$
+    key_groups:
+    - age:
+#      - *media
+      - *kristian
+
+  - path_regex: hosts/builder/secrets.ya?ml$
+    key_groups:
+    - age:
+#      - *builder
+      - *kristian
+
+  - path_regex: hosts/public-1/secrets.ya?ml$
+    key_groups:
+    - age:
+#      - *public-1
+      - *kristian
+
+  - path_regex: hosts/public-2/secrets.ya?ml$
+    key_groups:
+    - age:
+#      - *public-2
+      - *kristian
+
+  - path_regex: hosts/dvr/secrets.ya?ml$
+    key_groups:
+    - age:
+#      - *dvr
+      - *kristian
+
+  - path_regex: hosts/monitoring/secrets.ya?ml$
+    key_groups:
+    - age:
+#      - *monitoring
+      - *kristian
+
+  - path_regex: hosts/common/secrets.ya?ml$
+    key_groups:
+    - age:
+#      - *core
+#      - *media
+#      - *builder
+#      - *public-1
+#      - *public-2
+#      - *dvr
+#      - *monitoring
+      - *kristian
+  
+  - path_regex: hosts/common/global/secrets.ya?ml$
+    key_groups:
+    - age:
+      - *kristian
