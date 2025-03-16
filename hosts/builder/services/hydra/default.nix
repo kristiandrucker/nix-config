@@ -24,11 +24,18 @@ in {
 #    logo = null;
     
     # Configure Hydra with GitHub integration
-#    extraConfig =
-#      /*
-#      xml
-#      */
-#      ''
+    extraConfig =
+      /*
+      xml
+      */
+      ''
+      <hydra_notify>
+        <prometheus>
+          listen_address = 0.0.0.0
+          port = 9199
+        </prometheus>
+      </hydra_notify>
+      '';
 #        Include ${config.sops.secrets.hydra-gh-auth.path}
 #        max_unsupported_time = 30
 #        <githubstatus>

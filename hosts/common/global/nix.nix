@@ -15,7 +15,7 @@
       trusted-users = ["root" "@wheel"];
       
       # Only allow sudo users to manage the nix store
-      allowed-users = ["root" "@wheel"];
+      allowed-users = ["root" "@wheel" "hydra-www"];
       
       # Setup binary caches
       substituters = [
