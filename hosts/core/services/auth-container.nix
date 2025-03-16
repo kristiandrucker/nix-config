@@ -19,7 +19,7 @@
 
   # Define a Docker container for authentication service
   virtualisation.oci-containers.containers = {
-    auth = {
+    "auth" = {
       image = "nginx:alpine"; # This appears to be a custom authentication image
       autoStart = true;
       ports = [
