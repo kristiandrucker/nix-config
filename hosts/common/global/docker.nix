@@ -6,27 +6,26 @@
   virtualisation = {
     oci-containers.backend = "docker";
     docker = {
-        enable = true;
+      enable = true;
 
-        # Run dockerd with logs to journald instead of file
-        enableOnBoot = true;
-        logDriver = "journald";
+      # Run dockerd with logs to journald instead of file
+      enableOnBoot = true;
+      logDriver = "journald";
 
-        # Recommended settings for containers
-        daemon.settings = {
-          log-driver = "journald";
-          data-root = "/var/lib/docker";
-          storage-driver = "btrfs";
-          iptables = false;
+      # Recommended settings for containers
+      daemon.settings = {
+        log-driver = "journald";
+        data-root = "/var/lib/docker";
+        storage-driver = "btrfs";
+        iptables = false;
 
-          # Fix for recent Docker versions
-          features = {
-            buildkit = true;
-          };
+        # Fix for recent Docker versions
+        features = {
+          buildkit = true;
         };
       };
     };
-  }
+  };
   
   # Install docker-compose
   environment.systemPackages = with pkgs; [
