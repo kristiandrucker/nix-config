@@ -3,8 +3,8 @@ keys:
   - &users:
     - &kristian age198e00r627fttqxts3qmdrvenc60uw6e468rpnp0eh9juprps6gcq2vgh5h
   # Hosts
-#  - &hosts:
-#    - &core age1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  - &hosts:
+    - &core age14hpcyjldl3pa9jqmtn5sqsx85pyak84nq3a4cacktcednyklav0qkq697e
 #    - &media age1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 #    - &builder age1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 #    - &public-1 age1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -16,7 +16,7 @@ creation_rules:
   - path_regex: hosts/core/secrets.ya?ml$
     key_groups:
     - age:
-#      - *core
+      - *core
       - *kristian
 
   - path_regex: hosts/media/secrets.ya?ml$
@@ -58,7 +58,7 @@ creation_rules:
   - path_regex: hosts/common/secrets.ya?ml$
     key_groups:
     - age:
-#      - *core
+      - *core
 #      - *media
 #      - *builder
 #      - *public-1
