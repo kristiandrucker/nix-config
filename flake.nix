@@ -68,13 +68,13 @@
             };
         };
         
-        # Media server with NVIDIA drivers
-        media = lib.nixosSystem {
-            modules = [./hosts/media];
-            specialArgs = {
-                inherit inputs outputs;
-            };
-        };
+#        # Media server with NVIDIA drivers
+#        media = lib.nixosSystem {
+#            modules = [./hosts/media];
+#            specialArgs = {
+#                inherit inputs outputs;
+#            };
+#        };
         
         # Builder with Hydra and Nix cache
         builder = lib.nixosSystem {
@@ -84,28 +84,28 @@
             };
         };
         
-        # Public-facing VM servers with DNS and NTP
-        public-1 = lib.nixosSystem {
-            modules = [./hosts/public-1];
-            specialArgs = {
-                inherit inputs outputs;
-            };
-        };
-        
-        public-2 = lib.nixosSystem {
-            modules = [./hosts/public-2];
-            specialArgs = {
-                inherit inputs outputs;
-            };
-        };
-        
-        # Digital Video Recorder (Raspberry Pi)
-        dvr = lib.nixosSystem {
-            modules = [./hosts/dvr];
-            specialArgs = {
-                inherit inputs outputs;
-            };
-        };
+#        # Public-facing VM servers with DNS and NTP
+#        public-1 = lib.nixosSystem {
+#            modules = [./hosts/public-1];
+#            specialArgs = {
+#                inherit inputs outputs;
+#            };
+#        };
+#
+#        public-2 = lib.nixosSystem {
+#            modules = [./hosts/public-2];
+#            specialArgs = {
+#                inherit inputs outputs;
+#            };
+#        };
+#
+#        # Digital Video Recorder (Raspberry Pi)
+#        dvr = lib.nixosSystem {
+#            modules = [./hosts/dvr];
+#            specialArgs = {
+#                inherit inputs outputs;
+#            };
+#        };
         
         # Monitoring server with Prometheus, Grafana, Loki, Tempo
         monitoring = lib.nixosSystem {
