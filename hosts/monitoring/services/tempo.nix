@@ -6,7 +6,7 @@
 }: {
   # Enable Tempo distributed tracing
   services.tempo = {
-    enable = true;
+    enable = false;
     settings = {
       server = {
         http_listen_port = 3200;
@@ -75,8 +75,8 @@
   # Expose Tempo via Nginx
   services.nginx.virtualHosts = {
     "tempo.${config.domains.root}" = {
-      enableACME = true;
-      forceSSL = true;
+      enableACME = false;
+      forceSSL = false;
       locations."/" = {
         proxyPass = "http://localhost:3200";
         proxyWebsockets = true;

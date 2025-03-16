@@ -83,8 +83,8 @@ let
 in
 {
   # Add SOPS secret for SMTP password
-  sops.secrets.smtp-password = {
-    sopsFile = ../../secrets.yaml;
+  sops.secrets."grafana/smtp_password" = {
+    sopsFile = ../secrets.yaml;
   };
 
   # Prometheus server configuration
@@ -147,16 +147,16 @@ in
   
   # Configure AlertManager with external config
   services.prometheus.alertmanager = {
-    enable = true;
-    configFile = alertmanagerConfig;
+#    enable = true;
+#    configFile = alertmanagerConfig;
   };
   
   # Expose Prometheus via Nginx
   services.nginx.virtualHosts = {
     "prometheus.${config.domains.root}" = {
-      enableACME = true;
-      forceSSL = true;
-      basicAuthFile = config.sops.secrets.prometheus-htpasswd.path;
+#      enableACME = false;
+#      forceSSL = false;
+#      basicAuthFile = config.sops.secrets.prometheus-htpasswd.path;
       locations."/" = {
         proxyPass = "http://localhost:${toString config.services.prometheus.port}";
         proxyWebsockets = true;
@@ -164,23 +164,25 @@ in
     };
     
     "alertmanager.${config.domains.root}" = {
-      enableACME = true;
-      forceSSL = true;
-      basicAuthFile = config.sops.secrets.alertmanager-htpasswd.path;
+#      enableACME = false;
+#      forceSSL = false;
+#      basicAuthFile = config.sops.secrets.alertmanager-htpasswd.path;
       locations."/" = {
         proxyPass = "http://localhost:${toString config.services.prometheus.alertmanager.port}";
         proxyWebsockets = true;
       };
     };
   };
+
+  networking.firewall.interfaces."tailscale0".allowedTCPPorts = [ 9090 3000 ];
   
   # Add secrets for HTTP basic auth
   sops.secrets.prometheus-htpasswd = {
-    sopsFile = ../../secrets.yaml;
+    sopsFile = ../secrets.yaml;
   };
   
   sops.secrets.alertmanager-htpasswd = {
-    sopsFile = ../../secrets.yaml;
+    sopsFile = ../secrets.yaml;
   };
   
   # Ensure Prometheus data persists across reboots

@@ -5,7 +5,7 @@
 }: {
   # Enable Loki log aggregation service
   services.loki = {
-    enable = true;
+    enable = false;
     configuration = {
       auth_enabled = false;
       
@@ -80,8 +80,8 @@
   # Expose Loki via Nginx
   services.nginx.virtualHosts = {
     "loki.${config.domains.root}" = {
-      enableACME = true;
-      forceSSL = true;
+      enableACME = false;
+      forceSSL = false;
       locations."/" = {
         proxyPass = "http://localhost:3100";
         proxyWebsockets = true;

@@ -67,9 +67,9 @@ To use a SOPS-encrypted secret in your NixOS configuration:
        # Optional: specify owner
        owner = "tailscale";
      };
-   }
+   }[grafana.nix](hosts/monitoring/services/grafana.nix)
    ```
-
+[tempo.nix](hosts/monitoring/services/tempo.nix)
 2. **Reference the secret in your services**:
    ```nix
    {

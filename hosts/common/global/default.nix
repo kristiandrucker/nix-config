@@ -56,6 +56,8 @@
 
   # Packages for all systems
   environment.systemPackages = with pkgs; [
+    linuxKernel.packages.linux_zen.perf
+
     # System utilities
     curl
     wget

@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 {
   imports = [
@@ -14,6 +9,7 @@
     ../common/users/kristian
     ../common/optional/fail2ban.nix
     ../common/optional/nginx.nix
+    ../common/optional/proxmox.nix
   ];
 
   networking = {

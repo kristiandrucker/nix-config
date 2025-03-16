@@ -27,6 +27,7 @@
 
   programs = {
     home-manager.enable = true;
+    git.enable = true;
   };
 
   home = {
@@ -36,12 +37,14 @@
     sessionPath = ["$HOME/.local/bin"];
     
     persistence = {
-      "/persist${config.home.homeDirectory}" = {
+      "/persist/${config.home.homeDirectory}" = {
+        defaultDirectoryMethod = "symlink";
         directories = [
           "Documents"
           "Downloads"
           "Pictures"
           "Videos"
+          "Projects"
           ".local/bin"
           ".local/share/nix"
           ".ssh"
@@ -60,6 +63,7 @@
     git
     gnupg
     pinentry
+    fastfetch
     
     # Archive utilities
     zip

@@ -6,12 +6,14 @@
 }: {
   # Configure SOPS secrets for the auth container
   sops.secrets."auth_container/admin_password" = {
+    sopsFile = ../secrets.yaml;
     owner = "root";
     group = "root";
     mode = "0400";
   };
 
   sops.secrets."auth_container/db_password" = {
+    sopsFile = ../secrets.yaml;
     owner = "root";
     group = "root";
     mode = "0400";
@@ -20,7 +22,7 @@
   # Define a Docker container for authentication service
   virtualisation.oci-containers.containers = {
     "auth" = {
-      image = "nginx:stable-alpine"; # This appears to be a custom authentication image
+      image = "nginx"; # This appears to be a custom authentication image
       autoStart = true;
       ports = [
         "127.0.0.1:8080:80" # Only expose locally
@@ -38,9 +40,6 @@
 #        "/persist/var/lib/auth-data:/data"
         "${config.sops.secrets."auth_container/admin_password".path}:/run/secrets/auth_container_admin_password"
         "${config.sops.secrets."auth_container/db_password".path}:/run/secrets/auth_container_db_password"
-      ];
-      extraOptions = [
-        "--restart=unless-stopped"
       ];
     };
   };
