@@ -23,7 +23,7 @@
     # Additional flags for tailscale up
     extraUpFlags = [
       "--accept-dns=true"
-      "--ssh=false"
+      "--webclient=true"
     ];
   };
   

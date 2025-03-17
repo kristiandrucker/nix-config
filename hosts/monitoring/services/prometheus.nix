@@ -127,7 +127,13 @@ in
       {
         job_name = "hydra";
         static_configs = [{
-          targets = [ "builder.ts.${config.domains.root}:9199" ];
+          labels = {
+            instance = "hydra";
+          };
+          targets = [
+            "builder.ts.${config.domains.root}:9198"
+            "builder.ts.${config.domains.root}:9199"
+          ];
         }];
       }
     ];

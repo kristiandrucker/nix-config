@@ -74,5 +74,5 @@ in {
   ];
   
   # Open Prometheus metrics port for Tailscale access only
-  networking.firewall.interfaces."tailscale0".allowedTCPPorts = [ 9199 ];
+  networking.firewall.interfaces."tailscale0".allowedTCPPorts = [ 9198 9199 ];
 }
