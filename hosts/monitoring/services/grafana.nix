@@ -83,6 +83,7 @@
       grafana-dashboards = pkgs.runCommand "grafana-dashboards" {} ''
         mkdir -p $out/dashboards
         cp ${./dashboards/node-exporter.json} $out/dashboards/node-exporter.json
+        cp ${./dashboards/grafana-tailscale.json} $out/dashboards/grafana-tailscale.json
       '';
     })
   ];

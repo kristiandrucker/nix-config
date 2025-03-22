@@ -122,6 +122,15 @@ in
           };
         }) nixosConfigs;
       }
+      {
+        job_name = "tailscale";
+        static_configs = builtins.map (host: {
+          targets = [ "${host}.ts.${config.domains.root}:5252" ];
+          labels = {
+            instance = host;
+          };
+        }) nixosConfigs;
+      }
       
       # Scrape Hydra metrics
       {
@@ -131,7 +140,7 @@ in
             instance = "hydra";
           };
           targets = [
-            "builder.ts.${config.domains.root}:9198"
+#            "builder.ts.${config.domains.root}:9198"
             "builder.ts.${config.domains.root}:9199"
           ];
         }];
