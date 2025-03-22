@@ -51,8 +51,8 @@ in {
   # Expose Hydra through NGINX
   services.nginx.virtualHosts = {
     "hydra.${config.domains.root}" = {
-      enableACME = false;
-      forceSSL = false;
+      forceSSL = true;
+      useACMEHost = "drkr.io";
       
       locations."/".extraConfig = ''
         proxy_pass http://localhost:${toString config.services.hydra.port};

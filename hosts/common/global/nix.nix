@@ -19,7 +19,7 @@
       
       # Setup binary caches
       substituters = [
-        "http://cache.drkr.io"
+        "https://cache.drkr.io"
         "https://cache.nixos.org"
         "https://nix-community.cachix.org"
       ];

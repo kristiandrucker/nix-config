@@ -14,8 +14,8 @@
       package = pkgs.nix-serve;
     };
     nginx.virtualHosts."cache.${config.domains.root}" = {
-      enableACME = false;
-      forceSSL = false;
+      forceSSL = true;
+      useACMEHost = "drkr.io";
       locations."/".extraConfig = ''
         proxy_pass http://localhost:${toString config.services.nix-serve.port};
         proxy_set_header Host $host;

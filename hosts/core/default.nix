@@ -7,6 +7,7 @@
 
     ../common/global
     ../common/users/kristian
+    ../common/optional/acme.nix
     ../common/optional/fail2ban.nix
     ../common/optional/nginx.nix
     ../common/optional/proxmox.nix
