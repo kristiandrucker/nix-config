@@ -1,6 +1,6 @@
 {pkgs ? import <nixpkgs> {}, ...}: {
   default = pkgs.mkShell {
-    NIX_CONFIG = "extra-experimental-features = nix-command flakes ca-derivations; extra-trusted-users=kristian";
+    NIX_CONFIG = "extra-experimental-features = nix-command flakes ca-derivations";
     nativeBuildInputs = with pkgs; [
       nix
       nixos-rebuild
@@ -11,6 +11,7 @@
       ssh-to-age
       gnupg
       age
+      alejandra
     ];
   };
 }

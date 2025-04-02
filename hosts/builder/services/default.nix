@@ -9,5 +9,6 @@
 
     ./hydra
     ./binary-cache.nix
+    ./pixiecore.nix
   ];
 }

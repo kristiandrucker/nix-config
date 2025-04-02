@@ -13,7 +13,11 @@
 
   boot = {
     initrd.availableKernelModules = ["ata_piix" "uhci_hcd"];
-    kernelModules = ["kvm-intel"];
+    kernelModules = [];
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+    };
   };
 
   disko.devices.disk.main = {

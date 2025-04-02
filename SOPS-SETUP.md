@@ -23,7 +23,7 @@ When deploying to a new NixOS host, SOPS-NIX will automatically use the host's S
 
 3. **Convert the SSH key to an AGE key**:
    ```bash
-   ssh root@new-host "cat /etc/ssh/ssh_host_ed25519_key.pub | ssh-to-age"
+   ssh root@new-host "cat /persist/etc/ssh/ssh_host_ed25519_key.pub | ssh-to-age"
    ```
    
    This requires the `ssh-to-age` tool which you can install via:

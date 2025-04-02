@@ -70,13 +70,13 @@
             };
         };
         
-#        # Media server with NVIDIA drivers
-#        media = lib.nixosSystem {
-#            modules = [./hosts/media];
-#            specialArgs = {
-#                inherit inputs outputs;
-#            };
-#        };
+        # Media server with NVIDIA drivers
+        media = lib.nixosSystem {
+            modules = [./hosts/media];
+            specialArgs = {
+                inherit inputs outputs;
+            };
+        };
         
         # Builder with Hydra and Nix cache
         builder = lib.nixosSystem {

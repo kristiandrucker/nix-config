@@ -4,13 +4,13 @@ keys:
     - &kristian age198e00r627fttqxts3qmdrvenc60uw6e468rpnp0eh9juprps6gcq2vgh5h
   # Hosts
   - &hosts:
-    - &core age14hpcyjldl3pa9jqmtn5sqsx85pyak84nq3a4cacktcednyklav0qkq697e
-#    - &media age1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    - &core age1702pt2jxuw9l63p2vc2pe4234yxym7557xfyr099s23drphvefds25w45h
+    - &media age13qz09z677p7kags6mjzsjv9cea9l36wzdttrzqpsmj75jkdfcgyql3sumj
     - &builder age1kjl5ch4jaksd5d39z69hffztgyga9yg40lrfsz8wetrs8lz43emqflxpxh
 #    - &public-1 age1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 #    - &public-2 age1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 #    - &dvr age1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-    - &monitoring age1uqcxmt38amgz44nfacqlttxjtggl0lyvhlqwgmsydtzwwjkwn36qy834pq
+    - &monitoring age1qm0rwtjpvfwkeannq0c0d22rj2qh5y7v402dnkexrtgrl8a89yxqftpkcn
 
 creation_rules:
   - path_regex: hosts/core/secrets.ya?ml$
@@ -22,7 +22,7 @@ creation_rules:
   - path_regex: hosts/media/secrets.ya?ml$
     key_groups:
     - age:
-#      - *media
+      - *media
       - *kristian
 
   - path_regex: hosts/builder/secrets.ya?ml$
@@ -59,7 +59,7 @@ creation_rules:
     key_groups:
     - age:
       - *core
-#      - *media
+      - *media
       - *builder
 #      - *public-1
 #      - *public-2

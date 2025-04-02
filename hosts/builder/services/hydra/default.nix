@@ -20,8 +20,6 @@ in {
     port = 3000;
 #    buildMachinesFiles = [];
     useSubstitutes = true;
-#    dbi = "dbi:Pg:dbname=hydra;user=postgres;";
-#    logo = null;
     
     # Configure Hydra with GitHub integration
     extraConfig =

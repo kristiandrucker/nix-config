@@ -13,7 +13,7 @@
 
   boot = {
     initrd.availableKernelModules = ["ata_piix" "uhci_hcd"];
-    kernelModules = ["kvm-intel"];
+    kernelModules = [];
   };
 
   disko.devices.disk.main = {
