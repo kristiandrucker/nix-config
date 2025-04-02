@@ -15,22 +15,22 @@ in {
 
   programs.ssh = {
     enable = true;
-    
+
     # Use a directory for known hosts to make persistence easier
     userKnownHostsFile = "${config.home.homeDirectory}/.ssh/known_hosts.d/hosts";
-    
+
     # Enable multiplexing for faster connections
     controlMaster = "auto";
     controlPath = "${config.home.homeDirectory}/.ssh/control/%r@%h:%p";
     controlPersist = "30m";
-    
+
     # Global SSH configuration
     extraConfig = ''
       AddKeysToAgent yes
       ServerAliveInterval 60
       ServerAliveCountMax 5
     '';
-    
+
     # Configure all hosts with agent forwarding
     matchBlocks = {
       # Match all our managed hosts
@@ -42,7 +42,7 @@ in {
           StreamLocalBindUnlink = "yes";
         };
       };
-      
+
       # Match all hosts
       "*" = {
         # Forward SSH agent by default

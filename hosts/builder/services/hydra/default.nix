@@ -18,29 +18,29 @@ in {
     hydraURL = "https://hydra.${config.domains.root}";
     notificationSender = "hydra@${config.domains.root}";
     port = 3000;
-#    buildMachinesFiles = [];
+    #    buildMachinesFiles = [];
     useSubstitutes = true;
-    
+
     # Configure Hydra with GitHub integration
     extraConfig =
       /*
       xml
       */
       ''
-      <hydra_notify>
-        <prometheus>
-          listen_address = 0.0.0.0
-          port = 9199
-        </prometheus>
-      </hydra_notify>
+        <hydra_notify>
+          <prometheus>
+            listen_address = 0.0.0.0
+            port = 9199
+          </prometheus>
+        </hydra_notify>
       '';
-#        Include ${config.sops.secrets.hydra-gh-auth.path}
-#        max_unsupported_time = 30
-#        <githubstatus>
-#          jobs = .*
-#          useShortContext = true
-#        </githubstatus>
-#      '';
+    #        Include ${config.sops.secrets.hydra-gh-auth.path}
+    #        max_unsupported_time = 30
+    #        <githubstatus>
+    #          jobs = .*
+    #          useShortContext = true
+    #        </githubstatus>
+    #      '';
     extraEnv = {
       HYDRA_DISALLOW_UNFREE = "0";
     };
@@ -51,7 +51,7 @@ in {
     "hydra.${config.domains.root}" = {
       forceSSL = true;
       useACMEHost = "drkr.io";
-      
+
       locations."/".extraConfig = ''
         proxy_pass http://localhost:${toString config.services.hydra.port};
         proxy_set_header Host $host;
@@ -70,7 +70,7 @@ in {
   environment.persistence."/persist".directories = [
     "/var/lib/hydra"
   ];
-  
+
   # Open Prometheus metrics port for Tailscale access only
-  networking.firewall.interfaces."tailscale0".allowedTCPPorts = [ 9198 9199 ];
+  networking.firewall.interfaces."tailscale0".allowedTCPPorts = [9198 9199];
 }

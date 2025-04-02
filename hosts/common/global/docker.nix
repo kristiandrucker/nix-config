@@ -1,7 +1,4 @@
-{
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   # Enable Docker
   virtualisation = {
     oci-containers.backend = "docker";
@@ -26,7 +23,7 @@
       };
     };
   };
-  
+
   # Install docker-compose
   environment.systemPackages = with pkgs; [
     docker-compose
@@ -36,7 +33,7 @@
   environment.persistence."/persist".directories = [
     "/var/lib/docker"
   ];
-  
+
   # Add user to the docker group
   users.users.kristian.extraGroups = ["docker"];
 }

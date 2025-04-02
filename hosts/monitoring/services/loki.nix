@@ -8,7 +8,7 @@
     enable = true;
     configuration = {
       auth_enabled = false;
-      
+
       server = {
         http_listen_port = 3100;
       };
@@ -71,7 +71,7 @@
       limits_config.split_queries_by_interval = "24h";
     };
   };
-  
+
   # Expose Loki via Nginx
   services.nginx.virtualHosts = {
     "loki.${config.domains.root}" = {
@@ -83,10 +83,10 @@
       };
     };
   };
-  
+
   # Allow Tailscale nodes to access Loki
-  networking.firewall.interfaces."tailscale0".allowedTCPPorts = [ 3100 ];
-  
+  networking.firewall.interfaces."tailscale0".allowedTCPPorts = [3100];
+
   # Ensure Loki data persists across reboots
   environment.persistence."/persist".directories = [
     "/var/lib/loki"

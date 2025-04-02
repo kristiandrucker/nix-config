@@ -1,7 +1,4 @@
-{
-  config,
-  ...
-}: {
+{config, ...}: {
   # Enable nginx with recommended settings
   services.nginx = {
     enable = true;
@@ -13,7 +10,7 @@
 
   # Open firewall ports for HTTP/HTTPS
   networking.firewall.allowedTCPPorts = [
-    80    # HTTP
-    443   # HTTPS
+    80 # HTTP
+    443 # HTTPS
   ];
 }

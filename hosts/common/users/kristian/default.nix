@@ -38,7 +38,7 @@ in {
 
   # Configure sudo without password
   security.sudo.wheelNeedsPassword = false;
-  
+
   # Setup SOPS secret for password
   sops.secrets.kristian-password = {
     sopsFile = ../../secrets.yaml;

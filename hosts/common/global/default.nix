@@ -70,18 +70,18 @@
     fd
     jq
     yq
-    
+
     # File utilities
     unzip
     zip
     gzip
-    
+
     # Network utilities
     iptables
     dig
     tcpdump
     nmap
-    
+
     # Monitoring tools
     lsof
     strace

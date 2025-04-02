@@ -1,13 +1,17 @@
-{ self, config, lib, pkgs, ... }:
-
 {
+  self,
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   security.acme = {
     acceptTerms = true;
     defaults.email = "certs@drkr.io";
 
     certs."drkr.io" = {
       domain = "drkr.io";
-      extraDomainNames = [ "*.drkr.io" ];
+      extraDomainNames = ["*.drkr.io"];
       dnsProvider = "cloudflare";
       dnsPropagationCheck = true;
       credentialFiles = {
@@ -27,5 +31,5 @@
     neededForUsers = true;
   };
 
-  users.users.nginx.extraGroups = [ "acme" ];
+  users.users.nginx.extraGroups = ["acme"];
 }

@@ -3,9 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-
-{
+}: {
   imports = [
     ./hardware-configuration.nix
     ./services
@@ -28,7 +26,7 @@
     cores = lib.mkDefault 0;
     trusted-users = ["hydra" "hydra-evaluator" "hydra-queue-runner"];
   };
-  
+
   # Additional packages for build environment
   environment.systemPackages = with pkgs; [
     gcc

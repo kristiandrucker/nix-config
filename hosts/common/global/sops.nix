@@ -14,10 +14,10 @@ in {
   sops = {
     # Use SSH host key as the age key for SOPS
     age.sshKeyPaths = map getKeyPath keys;
-    
+
     # Default secrets location
     defaultSopsFile = ../secrets.yaml;
-    
+
     # Ensure we store secrets in persisted locations
     age.generateKey = false;
   };

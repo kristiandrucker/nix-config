@@ -12,7 +12,7 @@
         http_listen_port = 3200;
         grpc_listen_port = 9096;
       };
-      
+
       distributor = {
         receivers = {
           otlp = {
@@ -24,7 +24,7 @@
           };
         };
       };
-      
+
       storage.trace = {
         backend = "local";
         wal.path = "/var/lib/tempo/wal";
@@ -39,7 +39,7 @@
     PrivateTmp = true;
     ProtectHome = true;
   };
-  
+
   # Expose Tempo via Nginx
   services.nginx.virtualHosts = {
     "tempo.${config.domains.root}" = {
@@ -51,18 +51,18 @@
       };
     };
   };
-  
+
   # Allow Tailscale nodes to access Tempo
-  networking.firewall.interfaces."tailscale0".allowedTCPPorts = [ 
-    3200   # Tempo HTTP
+  networking.firewall.interfaces."tailscale0".allowedTCPPorts = [
+    3200 # Tempo HTTP
     #4317   # OTLP gRPC
     #4318   # OTLP HTTP
-    14268  # Jaeger HTTP
+    14268 # Jaeger HTTP
   ];
-  
+
   # Ensure Tempo data persists across reboots
   environment.persistence."/persist".directories = [
     "/var/lib/tempo"
-#    "/var/lib/tempo2"
+    #    "/var/lib/tempo2"
   ];
 }

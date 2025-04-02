@@ -6,7 +6,7 @@
   # Enable Grafana service
   services.grafana = {
     enable = true;
-    
+
     # Server settings
     settings = {
       server = {
@@ -14,24 +14,24 @@
         http_addr = "0.0.0.0";
         http_port = 3000;
       };
-      
+
       security = {
         admin_user = "admin";
         admin_password = "admin";
       };
-      
+
       # Automatically add our data sources
       analytics.reporting_enabled = false;
-      
-#      auth.anonymous = {
-#        enabled = false;
-#      };
+
+      #      auth.anonymous = {
+      #        enabled = false;
+      #      };
     };
-    
+
     # Configure data sources
     provision = {
       enable = true;
-      
+
       # Add our data sources
       datasources.settings.datasources = [
         {
@@ -51,7 +51,7 @@
           url = "http://localhost:3200";
         }
       ];
-      
+
       # Add default dashboards
       dashboards.settings = {
         apiVersion = 1;
@@ -76,7 +76,7 @@
       };
     };
   };
-  
+
   # Create grafana-dashboards package with built-in dashboards
   nixpkgs.overlays = [
     (self: super: {
@@ -87,7 +87,7 @@
       '';
     })
   ];
-  
+
   # Expose Grafana via Nginx
   services.nginx.virtualHosts = {
     "grafana.${config.domains.root}" = {
@@ -99,12 +99,12 @@
       };
     };
   };
-  
+
   # Add secret for Grafana admin password
   sops.secrets."grafana/admin_password" = {
     sopsFile = ../secrets.yaml;
   };
-  
+
   # Ensure Grafana data persists across reboots
   environment.persistence."/persist".directories = [
     "/var/lib/grafana"

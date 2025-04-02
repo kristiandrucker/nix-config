@@ -1,10 +1,7 @@
-{
-  lib,
-  ...
-}: {
+{lib, ...}: {
   services.fail2ban = {
     enable = true;
-    
+
     # Default jail settings
     jails = {
       # Enable SSH protection with mkForce to override the default
@@ -14,7 +11,7 @@
         findtime = 1d
         bantime = 1d
       '';
-      
+
       # Web server protection
       nginx-http-auth = ''
         enabled = true
@@ -23,7 +20,7 @@
         bantime = 2h
       '';
     };
-    
+
     # Custom settings
     banaction = "iptables-multiport";
     ignoreIP = [

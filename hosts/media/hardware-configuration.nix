@@ -1,4 +1,9 @@
-{modulesPath, inputs, config, ...}: {
+{
+  modulesPath,
+  inputs,
+  config,
+  ...
+}: {
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")
     inputs.disko.nixosModules.disko
@@ -44,7 +49,7 @@
           size = "100%";
           content = {
             type = "btrfs";
-            extraArgs = [ "-L${config.networking.hostName}" ];
+            extraArgs = ["-L${config.networking.hostName}"];
             postCreateHook = ''
               MNTPOINT=$(mktemp -d)
               mount -t btrfs "${config.disko.devices.disk.main.content.partitions.core.device}" "$MNTPOINT"

@@ -35,16 +35,16 @@
       # Completion styling
       zstyle ':completion:*' menu select
       zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
-      
+
       # Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
       HISTSIZE=1000
       SAVEHIST=1000
-      
+
       # Useful Functions
       mkcd() {
         mkdir -p "$@" && cd "$_";
       }
-      
+
       # FZF integration
       if command -v fzf-share >/dev/null; then
         source "$(fzf-share)/key-bindings.zsh"
@@ -64,7 +64,7 @@
         "command-not-found"
       ];
     };
-    
+
     plugins = [
       {
         name = "zsh-nix-shell";
@@ -83,45 +83,45 @@
   programs.starship = {
     enable = true;
     enableZshIntegration = true;
-    
+
     settings = {
       add_newline = false;
-      
+
       format = "$all";
-      
+
       character = {
         success_symbol = "[➜](bold green)";
         error_symbol = "[✗](bold red)";
       };
-      
+
       directory = {
         truncation_length = 3;
         truncate_to_repo = true;
       };
-      
+
       git_branch = {
         symbol = "🌱 ";
         truncation_length = 20;
       };
-      
+
       nix_shell = {
         symbol = "❄️ ";
         format = "[$symbol$state]($style) ";
       };
-      
+
       hostname = {
         ssh_only = false;
         format = "[$hostname]($style) ";
         style = "bold green";
       };
-      
+
       username = {
         format = "[$user]($style) at ";
         show_always = true;
       };
     };
   };
-  
+
   # Set some environment variables for ZSH
   home.sessionVariables = {
     EDITOR = "nvim";

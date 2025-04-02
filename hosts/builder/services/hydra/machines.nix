@@ -1,7 +1,4 @@
-{
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   nix.buildMachines = [
     {
       hostName = "localhost";

@@ -1,10 +1,20 @@
-{ config, inputs, lib, pkgs, ... }:
-
-let
+{
+  config,
+  inputs,
+  lib,
+  pkgs,
+  ...
+}: let
   sys = lib.nixosSystem {
     system = "x86_64-linux";
     modules = [
-      ({ config, pkgs, lib, modulesPath, ... }: {
+      ({
+        config,
+        pkgs,
+        lib,
+        modulesPath,
+        ...
+      }: {
         imports = [
           (modulesPath + "/installer/netboot/netboot-minimal.nix")
           (modulesPath + "/profiles/qemu-guest.nix")
@@ -44,5 +54,5 @@ in {
     debug = true;
   };
 
-  networking.firewall.interfaces."tailscale0".allowedTCPPorts = [ 8000 ];
+  networking.firewall.interfaces."tailscale0".allowedTCPPorts = [8000];
 }

@@ -1,6 +1,6 @@
-{ outputs, ... } : {
+{outputs, ...}: {
   boot = {
-    kernelParams = [ "console=ttyS0" ];
+    kernelParams = ["console=ttyS0"];
     initrd.availableKernelModules = [
       "uas"
       "virtio_blk"

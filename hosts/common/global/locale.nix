@@ -1,7 +1,4 @@
-{
-  lib,
-  ...
-}: {
+{lib, ...}: {
   # Configure time zone and locale
   time.timeZone = lib.mkDefault "UTC";
   i18n.defaultLocale = lib.mkDefault "en_US.UTF-8";

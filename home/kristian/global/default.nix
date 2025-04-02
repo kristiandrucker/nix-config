@@ -35,7 +35,7 @@
     homeDirectory = lib.mkDefault "/home/${config.home.username}";
     stateVersion = lib.mkDefault "24.11";
     sessionPath = ["$HOME/.local/bin"];
-    
+
     persistence = {
       "/persist/${config.home.homeDirectory}" = {
         defaultDirectoryMethod = "symlink";
@@ -64,24 +64,24 @@
     gnupg
     pinentry
     fastfetch
-    
+
     # Archive utilities
     zip
     unzip
     gzip
     p7zip
-    
+
     # Network utilities
     dig
     nmap
     netcat
     socat
-    
+
     # System utilities
     htop
     lsof
     strace
-    
+
     # Development tools
     gcc
     gnumake

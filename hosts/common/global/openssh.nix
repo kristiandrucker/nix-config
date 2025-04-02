@@ -13,22 +13,22 @@ in {
   # Enable the OpenSSH daemon
   services.openssh = {
     enable = true;
-    
+
     # Security settings
     settings = {
       # Disable password authentication
       PasswordAuthentication = false;
       PermitRootLogin = "no";
-      
+
       # Use the more secure protocol by default
       Protocol = 2;
-      
+
       # Enable agent forwarding
       AllowAgentForwarding = true;
-      
+
       # Enable TCP forwarding (for remote port forwards)
       AllowTcpForwarding = true;
-      
+
       # Only use modern ciphers and keysig algorithms
       KexAlgorithms = [
         "curve25519-sha256"
@@ -36,7 +36,7 @@ in {
         "diffie-hellman-group16-sha512"
         "diffie-hellman-group18-sha512"
       ];
-      
+
       Ciphers = [
         "chacha20-poly1305@openssh.com"
         "aes256-gcm@openssh.com"
@@ -45,11 +45,11 @@ in {
         "aes192-ctr"
         "aes128-ctr"
       ];
-      
+
       # Allow StreamLocalBindUnlink for agent forwarding
       StreamLocalBindUnlink = true;
     };
-    
+
     # Generate host keys on first boot
     hostKeys = [
       {
@@ -78,8 +78,8 @@ in {
     config.environment.etc."ssh/sshd_config".source
   ];
 
-   security.pam.sshAgentAuth = {
-     enable = true;
-     authorizedKeysFiles = ["/etc/ssh/authorized_keys.d/%u"];
-   };
+  security.pam.sshAgentAuth = {
+    enable = true;
+    authorizedKeysFiles = ["/etc/ssh/authorized_keys.d/%u"];
+  };
 }
