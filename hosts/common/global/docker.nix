@@ -9,12 +9,14 @@
       enableOnBoot = true;
       logDriver = "journald";
 
+      autoPrune.enable = true;
+
       # Recommended settings for containers
       daemon.settings = {
         log-driver = "journald";
         data-root = "/var/lib/docker";
         storage-driver = "btrfs";
-        iptables = false;
+        #        iptables = false;
 
         # Fix for recent Docker versions
         features = {

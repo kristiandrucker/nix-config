@@ -32,7 +32,7 @@ in {
     ];
 
     openssh.authorizedKeys.keys = lib.splitString "\n" (builtins.readFile ../../../../home/kristian/ssh.pub);
-    password = config.sops.secrets.kristian-password.path;
+    hashedPasswordFile = config.sops.secrets.kristian-password.path;
     packages = [pkgs.home-manager];
   };
 

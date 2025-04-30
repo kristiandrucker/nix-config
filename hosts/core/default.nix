@@ -12,6 +12,7 @@
     ../common/users/kristian
     ../common/optional/acme.nix
     ../common/optional/fail2ban.nix
+    ../common/optional/npm.nix
     ../common/optional/nginx.nix
     ../common/optional/proxmox.nix
   ];
@@ -21,5 +22,7 @@
     useDHCP = true;
   };
 
-  system.stateVersion = "24.11";
+  boot.kernelParams = ["console=ttyS0,115200n8" "console=tty0"];
+
+  system.stateVersion = "25.05";
 }

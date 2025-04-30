@@ -4,30 +4,20 @@
   lib,
   ...
 }: {
-  # Define a Docker container for authentication service
-  virtualisation.oci-containers.containers = {
-    "auth" = {
-      image = "ghcr.io/pocket-id/pocket-id:v0.43.1"; # This appears to be a custom authentication image
-      autoStart = true;
-      ports = [
-        "127.0.0.1:8000:8000" # Only expose locally
-      ];
-      environment = {
-        PUBLIC_APP_URL = https://auth.drkr.io;
-        TRUST_PROXY = "true";
-        CADDY_PORT = "8000";
-      };
-      # Mount a persistent volume for data and secrets
-      volumes = [
-        "/etc/localtime:/etc/localtime:ro"
-        "/persist/mnt/data/auth/data:/app/backend/data"
-      ];
+  services.pocket-id = {
+    enable = true;
+    settings = {
+      PUBLIC_APP_URL = "https://auth.drkr.io";
+      INTERNAL_BACKEND_URL = "http://localhost:8882";
+      TRUST_PROXY = true;
+      PORT = "8881";
+      BACKEND_PORT = "8882";
     };
   };
 
   # Persist container data
   environment.persistence."/persist".directories = [
-    "/mnt/data/auth/data"
+    "/var/lib/pocket-id"
   ];
 
   # Expose through nginx proxy
@@ -35,8 +25,16 @@
     forceSSL = true;
     useACMEHost = "drkr.io";
     locations."/" = {
-      proxyPass = "http://localhost:8000";
-      proxyWebsockets = true;
+      proxyPass = "http://localhost:8881";
+      recommendedProxySettings = true;
+    };
+    locations."/api" = {
+      proxyPass = "http://localhost:8882";
+      recommendedProxySettings = true;
+    };
+    locations."/.well-known" = {
+      proxyPass = "http://localhost:8882";
+      recommendedProxySettings = true;
     };
   };
 }

@@ -6,6 +6,7 @@
       nixos-rebuild
       home-manager
       git
+      deploy-rs
 
       sops
       ssh-to-age

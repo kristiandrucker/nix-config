@@ -6,12 +6,15 @@
 }: {
   imports = [
     ./hardware-configuration.nix
-    #    ./services
+    ./services
 
     ../common/global
     ../common/users/kristian
+    ../common/optional/media-mount.nix
+    ../common/optional/acme.nix
     ../common/optional/fail2ban.nix
     ../common/optional/nginx.nix
+    ../common/optional/proxmox.nix
   ];
 
   networking = {

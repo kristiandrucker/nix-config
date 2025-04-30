@@ -47,6 +47,7 @@
           "Projects"
           ".local/bin"
           ".local/share/nix"
+          ".local/share/zsh" # Add this line to persist ZSH history
           ".ssh"
           ".ssh/known_hosts.d"
         ];
@@ -64,6 +65,7 @@
     gnupg
     pinentry
     fastfetch
+    pciutils
 
     # Archive utilities
     zip

@@ -15,6 +15,18 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
     systems.url = "github:nix-systems/default-linux";
+    deploy-rs = {
+      url = github:serokell/deploy-rs;
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    NixVirt = {
+      url = "github:kristiandrucker/nixvirt";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    microvm = {
+      url = "github:astro/microvm.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     hardware.url = "github:nixos/nixos-hardware";
     impermanence.url = "github:nix-community/impermanence";
@@ -37,85 +49,73 @@
     nixpkgs,
     home-manager,
     systems,
+    microvm,
     ...
   } @ inputs: let
     inherit (self) outputs;
     lib = nixpkgs.lib // home-manager.lib;
-    forEachSystem = f: lib.genAttrs (import systems) (system: f pkgsFor.${system});
-    pkgsFor = lib.genAttrs (import systems) (
+    supportedSystems = (import systems) ++ ["aarch64-darwin"];
+    forEachSystem = f: lib.genAttrs supportedSystems (system: f pkgsFor.${system});
+    pkgsFor = lib.genAttrs supportedSystems (
       system:
         import nixpkgs {
           inherit system;
           config.allowUnfree = true;
         }
     );
+
+    # Helper function to create NixOS configurations with common modules
+    mkNixosSystem = hostPath: extraModules:
+      lib.nixosSystem {
+        modules =
+          [
+            # Import the Envoy module directly (not as a list)
+            ./modules/envoy.nix
+
+            # Import the base host configuration
+            hostPath
+          ]
+          ++ extraModules;
+        specialArgs = {
+          inherit inputs outputs;
+        };
+      };
   in {
     inherit lib;
-    nixosModules = import ./modules/nixos;
+    nixosModules =
+      import ./modules
+      // {
+        envoy = import ./modules/envoy.nix;
+      };
     #    homeManagerModules = import ./modules/home-manager;
 
-    #    overlays = import ./overlays {inherit inputs outputs;};
-    hydraJobs = import ./hydra.nix {inherit inputs outputs;};
+    overlays = [(import ./overlays/plex.nix)];
+    #    hydraJobs = import ./hydra.nix {inherit inputs outputs;};
 
     #    packages = forEachSystem (pkgs: import ./pkgs {inherit pkgs;});
-    devShells = forEachSystem (pkgs: import ./shell.nix {inherit pkgs;});
+    devShells = forEachSystem (pkgs: {default = (import ./shell.nix {inherit pkgs;}).default;});
     formatter = forEachSystem (pkgs: pkgs.alejandra);
 
     nixosConfigurations = {
       # Core Server
-      core = lib.nixosSystem {
-        modules = [./hosts/core];
-        specialArgs = {
-          inherit inputs outputs;
-        };
-      };
+      core = mkNixosSystem ./hosts/core [];
 
       # Media server with NVIDIA drivers
-      media = lib.nixosSystem {
-        modules = [./hosts/media];
-        specialArgs = {
-          inherit inputs outputs;
-        };
-      };
+      media = mkNixosSystem ./hosts/media [];
 
       # Builder with Hydra and Nix cache
-      builder = lib.nixosSystem {
-        modules = [./hosts/builder];
-        specialArgs = {
-          inherit inputs outputs;
-        };
-      };
+      builder = mkNixosSystem ./hosts/builder [];
 
-      #        # Public-facing VM servers with DNS and NTP
-      #        public-1 = lib.nixosSystem {
-      #            modules = [./hosts/public-1];
-      #            specialArgs = {
-      #                inherit inputs outputs;
-      #            };
-      #        };
-      #
-      #        public-2 = lib.nixosSystem {
-      #            modules = [./hosts/public-2];
-      #            specialArgs = {
-      #                inherit inputs outputs;
-      #            };
-      #        };
-      #
-      #        # Digital Video Recorder (Raspberry Pi)
-      #        dvr = lib.nixosSystem {
-      #            modules = [./hosts/dvr];
-      #            specialArgs = {
-      #                inherit inputs outputs;
-      #            };
-      #        };
+      # Infrastructure VM with DBs
+      infrastructure = mkNixosSystem ./hosts/infrastructure [];
+
+      # Infrastructure VM with DBs
+      zeus = mkNixosSystem ./hosts/zeus [
+        microvm.nixosModules.host
+      ];
 
       # Monitoring server with Prometheus, Grafana, Loki, Tempo
-      monitoring = lib.nixosSystem {
-        modules = [./hosts/monitoring];
-        specialArgs = {
-          inherit inputs outputs;
-        };
-      };
+      monitoring = mkNixosSystem ./hosts/monitoring [];
     };
 
     homeConfigurations = {
@@ -131,6 +131,71 @@
         pkgs = pkgsFor.x86_64-linux;
         extraSpecialArgs = {
           inherit inputs outputs;
+        };
+      };
+      "kristian@media" = lib.homeManagerConfiguration {
+        modules = [./home/kristian/generic.nix];
+        pkgs = pkgsFor.x86_64-linux;
+        extraSpecialArgs = {
+          inherit inputs outputs;
+        };
+      };
+      "kristian@infrastructure" = lib.homeManagerConfiguration {
+        modules = [./home/kristian/generic.nix];
+        pkgs = pkgsFor.x86_64-linux;
+        extraSpecialArgs = {
+          inherit inputs outputs;
+        };
+      };
+    };
+
+    deploy.nodes = {
+      core = {
+        hostname = "core.ts.drkr.io";
+        fastConnection = false;
+        profiles = {
+          default = {
+            sshUser = "kristian";
+            path =
+              inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.core;
+            user = "root";
+          };
+        };
+      };
+      monitoring = {
+        hostname = "monitoring.ts.drkr.io";
+        fastConnection = false;
+        profiles = {
+          default = {
+            sshUser = "kristian";
+            path =
+              inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.monitoring;
+            user = "root";
+          };
+        };
+      };
+      media = {
+        hostname = "media.ts.drkr.io";
+        fastConnection = false;
+        profiles = {
+          default = {
+            sshUser = "kristian";
+            path =
+              inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.media;
+            user = "root";
+          };
+        };
+      };
+      infrastructure = {
+        hostname = "infrastructure.ts.drkr.io";
+        fastConnection = false;
+        profiles = {
+          default = {
+            sshUser = "kristian";
+            path =
+              inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.infrastructure;
+            user = "root";
+          };
         };
       };
     };

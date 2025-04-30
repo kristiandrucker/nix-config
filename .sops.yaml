@@ -11,6 +11,8 @@ keys:
 #    - &public-2 age1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 #    - &dvr age1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     - &monitoring age1qm0rwtjpvfwkeannq0c0d22rj2qh5y7v402dnkexrtgrl8a89yxqftpkcn
+    - &infrastructure age1czv6q0ppds2nnkqp2qry6r3arr92kp9l8h8snqq3hf3j002nqucsamepys
+    - &zeus age17szadq780jpzlaw0qsfjggr7xvy80lgvul4kh9r7zud65cykzunswkthp5
 
 creation_rules:
   - path_regex: hosts/core/secrets.ya?ml$
@@ -29,6 +31,12 @@ creation_rules:
     key_groups:
     - age:
       - *builder
+      - *kristian
+
+  - path_regex: hosts/infrastructure/secrets.ya?ml$
+    key_groups:
+    - age:
+      - *infrastructure
       - *kristian
 
   - path_regex: hosts/public-1/secrets.ya?ml$
@@ -61,10 +69,12 @@ creation_rules:
       - *core
       - *media
       - *builder
+      - *infrastructure
 #      - *public-1
 #      - *public-2
 #      - *dvr
       - *monitoring
+      - *zeus
       - *kristian
   
   - path_regex: hosts/common/global/secrets.ya?ml$

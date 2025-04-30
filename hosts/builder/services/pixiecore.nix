@@ -24,11 +24,16 @@
           services.openssh = {
             enable = true;
             openFirewall = true;
+          };
 
-            settings = {
-              PasswordAuthentication = false;
-              KbdInteractiveAuthentication = false;
-            };
+          environment.systemPackages = with pkgs; [
+            borgbackup
+          ];
+
+          fileSystems."/media/backup" = {
+            device = "10.1.0.32:/var/nfs/shared/Backups";
+            fsType = "nfs";
+            options = ["noauto" "x-systemd.automount" "x-systemd.idle-timeout=600"];
           };
 
           users.users.root.openssh.authorizedKeys.keys = [
@@ -50,7 +55,7 @@ in {
     mode = "boot";
     kernel = "${build.kernel}/bzImage";
     initrd = "${build.netbootRamdisk}/initrd";
-    cmdLine = "init=${build.toplevel}/init loglevel=4";
+    cmdLine = "init=${build.toplevel}/init loglevel=4 console=tty0 console=ttyS0,115200n8";
     debug = true;
   };
 

@@ -13,11 +13,12 @@
     ../common/optional/acme.nix
     ../common/optional/fail2ban.nix
     ../common/optional/nginx.nix
+    ../common/optional/proxmox.nix
   ];
 
   networking = {
     hostName = "builder";
-    useDHCP = true;
+    useDHCP = lib.mkForce true;
   };
 
   # Increase max builders for better performance
@@ -37,5 +38,5 @@
     direnv
   ];
 
-  system.stateVersion = "24.11";
+  system.stateVersion = "25.05";
 }

@@ -1,4 +1,6 @@
-# nix run github:nix-community/nixos-anywhere -- --flake '.#nixosConfigurations.core.config' --target-host root@10.1.0.118
-# nix run github:nix-community/nixos-anywhere -- --flake '.#nixosConfigurations.monitoring.config' --target-host root@10.1.0.124
-# nix run github:nix-community/nixos-anywhere -- --flake '.#nixosConfigurations.builder.config' --target-host root@10.1.0.81
-#nix run github:nix-community/nixos-anywhere -- --flake '.#nixosConfigurations.media.config' --target-host root@10.1.0.206
+# nix run github:nix-community/nixos-anywhere -- --phases kexec,disko,install --disko-mode disko --build-on remote --flake '.#nixosConfigurations.core.config' --target-host root@10.1.0.72
+# nix run github:nix-community/nixos-anywhere -- --phases kexec,disko,install --disko-mode disko --build-on remote --flake '.#nixosConfigurations.monitoring.config' --target-host root@10.1.0.124
+# nix run github:nix-community/nixos-anywhere -- --phases kexec,disko,install --disko-mode disko --build-on remote --flake '.#nixosConfigurations.builder.config' --target-host root@10.1.0.49
+# nix run github:nix-community/nixos-anywhere -- --phases kexec,disko,install --disko-mode disko --build-on remote --flake '.#nixosConfigurations.media.config' --target-host root@10.1.0.206
+# nix run github:nix-community/nixos-anywhere -- --phases kexec,disko,install --disko-mode disko --build-on remote --flake '.#nixosConfigurations.infrastructure.config' --target-host root@10.1.0.202
+# nix run github:nix-community/nixos-anywhere -- --phases kexec,disko,install --disko-mode disko --build-on remote --flake '.#nixosConfigurations.zeus.config' --target-host root@10.1.0.10

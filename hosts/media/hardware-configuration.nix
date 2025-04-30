@@ -8,6 +8,7 @@
     (modulesPath + "/profiles/qemu-guest.nix")
     inputs.disko.nixosModules.disko
     ../common/optional/ephemeral-btrfs.nix
+    ../common/optional/media-mount.nix
   ];
 
   nixpkgs.hostPlatform.system = "x86_64-linux";
@@ -24,6 +25,27 @@
       efi.canTouchEfiVariables = true;
     };
   };
+
+  # disko.devices.disk.data = {
+  #   device = "/dev/vdb";
+  #   type = "disk";
+  #   content = {
+  #     type = "gpt";
+  #     partitions = {
+  #       data = {
+  #         size = "100%";
+  #         content = {
+  #             type = "btrfs";
+  #             mountpoint = "/mnt/data";
+  #             mountOptions = [
+  #               "compress=zstd"
+  #               "noatime"
+  #             ];
+  #         };
+  #       };
+  #     };
+  #   };
+  # };
 
   disko.devices.disk.main = {
     device = "/dev/vda";

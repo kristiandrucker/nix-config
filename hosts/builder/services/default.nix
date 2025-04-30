@@ -5,10 +5,10 @@
   ...
 }: {
   imports = [
-    ../../common/optional/postgres.nix
+    #    ../../common/optional/postgres.nix
 
-    ./hydra
+    #    ./hydra
     ./binary-cache.nix
-    ./pixiecore.nix
+    #    ./pixiecore.nix
   ];
 }
