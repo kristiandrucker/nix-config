@@ -1,0 +1,48 @@
+name: Daily Flake Update
+
+on:
+  schedule:
+    # Run at midnight UTC every day
+    - cron: '0 0 * * *'
+  # Optional: Allow manual triggering
+  workflow_dispatch:
+
+jobs:
+  update-flakes:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v25
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+
+      - name: Update flake.lock
+        run: nix flake update
+
+      - name: Check for changes
+        id: git-check
+        run: |
+          if [[ -n "$(git status --porcelain)" ]]; then
+            echo "changes=true" >> $GITHUB_OUTPUT
+          else
+            echo "changes=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Setup Git user
+        if: steps.git-check.outputs.changes == 'true'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+
+      - name: Commit and push changes
+        if: steps.git-check.outputs.changes == 'true'
+        run: |
+          TODAY=$(date '+%Y-%m-%d')
+          git add flake.lock
+          git commit -m "chore: update flake dependencies on $TODAY"
+          git push origin main
