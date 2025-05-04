@@ -4,7 +4,7 @@
   ...
 }: {
   # Enable NVIDIA drivers and CUDA
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
   };
 

@@ -23,10 +23,6 @@
       url = "github:kristiandrucker/nixvirt";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    microvm = {
-      url = "github:astro/microvm.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
 
     hardware.url = "github:nixos/nixos-hardware";
     impermanence.url = "github:nix-community/impermanence";
@@ -49,7 +45,6 @@
     nixpkgs,
     home-manager,
     systems,
-    microvm,
     ...
   } @ inputs: let
     inherit (self) outputs;
@@ -110,9 +105,7 @@
       infrastructure = mkNixosSystem ./hosts/infrastructure [];
 
       # Infrastructure VM with DBs
-      zeus = mkNixosSystem ./hosts/zeus [
-        microvm.nixosModules.host
-      ];
+      zeus = mkNixosSystem ./hosts/zeus [];
 
       # Monitoring server with Prometheus, Grafana, Loki, Tempo
       monitoring = mkNixosSystem ./hosts/monitoring [];
