@@ -50,6 +50,10 @@ in {
               name = "monitoring.qcow2";
               capacityGiB = 128;
             })
+            (mkVolume {
+              name = "automation.qcow2";
+              capacityGiB = 64;
+            })
           ];
         }
       ];
@@ -178,6 +182,28 @@ in {
               (mkBridgeNetwork {
                 bridge = "br-inf";
                 mac = "ba:e0:37:d0:62:71";
+              })
+            ];
+          }
+        )
+        (
+          mkDomain {
+            active = true;
+            name = "automation";
+            uuid = "810e7616-b8cf-4f1d-8ebd-edb56cc8495e";
+            vcpus = 2;
+            memoryGiB = 4;
+            nvramPath = "/persist/var/lib/libvirt/images/automation.nvram";
+            disks = [
+              (mkQcowDisk {
+                volume = "automation.qcow2";
+                target = "vda";
+              })
+            ];
+            networks = [
+              (mkBridgeNetwork {
+                bridge = "br-inf";
+                mac = "ba:e0:37:d0:62:73";
               })
             ];
           }

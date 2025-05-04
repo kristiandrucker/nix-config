@@ -95,7 +95,10 @@
       # Core Server
       core = mkNixosSystem ./hosts/core [];
 
-      # Media server with NVIDIA drivers
+      # Home Automation Server
+      automation = mkNixosSystem ./hosts/automation [];
+
+      # Media server
       media = mkNixosSystem ./hosts/media [];
 
       # Builder with Hydra and Nix cache
@@ -104,7 +107,7 @@
       # Infrastructure VM with DBs
       infrastructure = mkNixosSystem ./hosts/infrastructure [];
 
-      # Infrastructure VM with DBs
+      # Bare metal host
       zeus = mkNixosSystem ./hosts/zeus [];
 
       # Monitoring server with Prometheus, Grafana, Loki, Tempo

@@ -12,6 +12,7 @@ keys:
 #    - &dvr age1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     - &monitoring age1qm0rwtjpvfwkeannq0c0d22rj2qh5y7v402dnkexrtgrl8a89yxqftpkcn
     - &infrastructure age1czv6q0ppds2nnkqp2qry6r3arr92kp9l8h8snqq3hf3j002nqucsamepys
+    - &automation age1n7g9dykmjdxafv945zmvjrmmvz7ewuetkch7gc3hqaa6xjc9a9hs4thkt5
     - &zeus age17szadq780jpzlaw0qsfjggr7xvy80lgvul4kh9r7zud65cykzunswkthp5
 
 creation_rules:
@@ -19,6 +20,12 @@ creation_rules:
     key_groups:
     - age:
       - *core
+      - *kristian
+
+  - path_regex: hosts/automation/secrets.ya?ml$
+    key_groups:
+    - age:
+      - *automation
       - *kristian
 
   - path_regex: hosts/media/secrets.ya?ml$
@@ -69,6 +76,7 @@ creation_rules:
       - *core
       - *media
       - *builder
+      - *automation
       - *infrastructure
 #      - *public-1
 #      - *public-2
