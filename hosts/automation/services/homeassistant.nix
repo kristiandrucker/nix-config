@@ -21,6 +21,6 @@
   };
 
   environment.persistence."/persist".directories = [
-    config.services.home-assistant.configDir
+    "/var/lib/hass"
   ];
 }

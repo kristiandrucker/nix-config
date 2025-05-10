@@ -66,6 +66,7 @@
     pinentry
     fastfetch
     pciutils
+    usbutils
 
     # Archive utilities
     zip

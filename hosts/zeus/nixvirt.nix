@@ -196,9 +196,20 @@ in {
             nvramPath = "/persist/var/lib/libvirt/images/automation.nvram";
             disks = [
               (mkQcowDisk {
-                volume = "automation.qcow2";
+                volume = "haos_ova-15.2.qcow2";
                 target = "vda";
               })
+            ];
+            hostdev = [
+              {
+                mode = "subsystem";
+                type = "usb";
+                managed = true;
+                source = {
+                  vendor.id = 4292;
+                  product.id = 60000;
+                };
+              }
             ];
             networks = [
               (mkBridgeNetwork {

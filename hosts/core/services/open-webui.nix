@@ -4,7 +4,7 @@
   lib,
   ...
 }: let
-  version = "0.6.5";
+  version = "0.6.7";
 in {
   virtualisation.oci-containers.containers = {
     "open-webui" = {
