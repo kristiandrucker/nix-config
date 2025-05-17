@@ -5,7 +5,7 @@
   ...
 }: {
   environment.systemPackages = with pkgs; [
-    nodejs_23
+    nodejs_24
     yarn
   ];
 }
