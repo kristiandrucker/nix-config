@@ -18,6 +18,7 @@
       "lidarr-log"
       "prowlarr-main"
       "prowlarr-log"
+      "mastodon"
       #      "overseerr"
     ];
 
@@ -26,6 +27,7 @@
       {name = "radarr";}
       {name = "lidarr";}
       {name = "prowlarr";}
+      {name = "mastodon";}
       # { name = "overseerr"; }
     ];
 
