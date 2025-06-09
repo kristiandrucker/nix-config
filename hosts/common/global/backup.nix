@@ -52,8 +52,8 @@
       startAt = "hourly";
       prune.keep = {
         hourly = 12;
-        daily = 7;
-        weekly = 2;
+        daily = 2;
+        weekly = 1;
         monthly = 0;
       };
 
