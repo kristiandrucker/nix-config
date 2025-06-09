@@ -13,7 +13,7 @@
   fileSystems."/mnt/backup" = {
     device = "10.1.0.32:/var/nfs/shared/Backups";
     fsType = "nfs";
-    options = ["noauto" "x-systemd.automount" "x-systemd.idle-timeout=600"];
+    options = ["noauto" "x-systemd.automount" "x-systemd.idle-timeout=600" "nconnect=8"];
   };
 
   # Ensure the mount directory exists
@@ -53,8 +53,8 @@
       prune.keep = {
         hourly = 12;
         daily = 7;
-        weekly = 4;
-        monthly = 6;
+        weekly = 2;
+        monthly = 0;
       };
 
       # Mount the NFS share before backup and unmount after

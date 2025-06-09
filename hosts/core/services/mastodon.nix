@@ -31,6 +31,10 @@
     };
   };
 
+  environment.persistence."/persist".directories = [
+    "/var/lib/mastodon/public-system"
+  ];
+
   services.nginx.virtualHosts = {
     "social.${config.domains.root}" = {
       enableACME = lib.mkForce false;

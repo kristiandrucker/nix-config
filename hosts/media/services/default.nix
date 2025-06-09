@@ -8,6 +8,9 @@
     ./lidarr.nix
     ./qbittorrent-vpn.nix
     ./sabnzbd.nix
+    ./readarr.nix
+    ./bazarr.nix
+    ./komga.nix
     ./overseerr.nix
   ];
 }

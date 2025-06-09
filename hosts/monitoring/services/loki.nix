@@ -75,8 +75,8 @@
   # Expose Loki via Nginx
   services.nginx.virtualHosts = {
     "loki.${config.domains.root}" = {
-      enableACME = false;
-      forceSSL = false;
+      forceSSL = true;
+      useACMEHost = "drkr.io";
       locations."/" = {
         proxyPass = "http://localhost:3100";
         proxyWebsockets = true;

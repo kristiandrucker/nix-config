@@ -31,6 +31,10 @@
     ];
   };
 
+  environment.persistence."/persist".directories = [
+      "/var/lib/prowlarr"
+    ];
+
   systemd.services.prowlarr.serviceConfig = {
     DynamicUser = lib.mkForce false;
     PrivateTmp = true;

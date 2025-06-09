@@ -179,8 +179,8 @@ in {
   # Expose Prometheus via Nginx
   services.nginx.virtualHosts = {
     "prometheus.${config.domains.root}" = {
-      #      enableACME = false;
-      #      forceSSL = false;
+      forceSSL = true;
+      useACMEHost = "drkr.io";
       #      basicAuthFile = config.sops.secrets.prometheus-htpasswd.path;
       locations."/" = {
         proxyPass = "http://localhost:${toString config.services.prometheus.port}";
@@ -189,8 +189,8 @@ in {
     };
 
     "alertmanager.${config.domains.root}" = {
-      #      enableACME = false;
-      #      forceSSL = false;
+      forceSSL = true;
+      useACMEHost = "drkr.io";
       #      basicAuthFile = config.sops.secrets.alertmanager-htpasswd.path;
       locations."/" = {
         proxyPass = "http://localhost:${toString config.services.prometheus.alertmanager.port}";

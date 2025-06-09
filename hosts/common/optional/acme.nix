@@ -8,6 +8,7 @@
   security.acme = {
     acceptTerms = true;
     defaults.email = "certs@drkr.io";
+    defaults.dnsResolver = "1.1.1.1:53";
 
     certs."drkr.io" = {
       domain = "drkr.io";

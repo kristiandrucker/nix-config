@@ -18,6 +18,11 @@
       "lidarr-log"
       "prowlarr-main"
       "prowlarr-log"
+      "readarr-main"
+      "readarr-log"
+      "readarr-cache"
+      "bazarr-main"
+      "bazarr-log"
       "mastodon"
       #      "overseerr"
     ];
@@ -27,6 +32,8 @@
       {name = "radarr";}
       {name = "lidarr";}
       {name = "prowlarr";}
+      {name = "readarr";}
+      {name = "bazarr";}
       {name = "mastodon";}
       # { name = "overseerr"; }
     ];

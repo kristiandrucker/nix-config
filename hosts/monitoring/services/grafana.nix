@@ -91,8 +91,8 @@
   # Expose Grafana via Nginx
   services.nginx.virtualHosts = {
     "grafana.${config.domains.root}" = {
-      enableACME = false;
-      forceSSL = false;
+      forceSSL = true;
+      useACMEHost = "drkr.io";
       locations."/" = {
         proxyPass = "http://localhost:${toString config.services.grafana.settings.server.http_port}";
         proxyWebsockets = true;
