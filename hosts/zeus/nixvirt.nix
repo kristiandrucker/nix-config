@@ -31,29 +31,29 @@ in {
           active = true;
           volumes = [
             (mkVolume {
-              name = "builder.qcow2";
+              name = "builder.raw";
               capacityGiB = 128;
             })
             (mkVolume {
-              name = "core.qcow2";
+              name = "core.raw";
               capacityGiB = 64;
             })
             (mkVolume {
-              name = "infrastructure.qcow2";
+              name = "infrastructure.raw";
               capacityGiB = 128;
             })
             (mkVolume {
-              name = "media.qcow2";
+              name = "media.raw";
               capacityGiB = 128;
             })
             (mkVolume {
-              name = "monitoring.qcow2";
+              name = "monitoring.raw";
               capacityGiB = 128;
             })
-            (mkVolume {
-              name = "automation.qcow2";
-              capacityGiB = 64;
-            })
+#            (mkVolume {
+#              name = "automation.qcow2";
+#              capacityGiB = 64;
+#            })
           ];
         }
       ];
@@ -67,8 +67,8 @@ in {
             memoryGiB = 16;
             nvramPath = "/persist/var/lib/libvirt/images/core.VARS.fd";
             disks = [
-              (mkQcowDisk {
-                volume = "core.qcow2";
+              (mkRawDisk {
+                volume = "core.raw";
                 target = "vda";
               })
             ];
@@ -88,8 +88,8 @@ in {
             memoryGiB = 32;
             nvramPath = "/persist/var/lib/libvirt/images/infrastructure.VARS.fd";
             disks = [
-              (mkQcowDisk {
-                volume = "infrastructure.qcow2";
+              (mkRawDisk {
+                volume = "infrastructure.raw";
                 target = "vda";
               })
             ];
@@ -110,8 +110,8 @@ in {
             memoryGiB = 16;
             nvramPath = "/persist/var/lib/libvirt/images/monitoring.nvram";
             disks = [
-              (mkQcowDisk {
-                volume = "monitoring.qcow2";
+              (mkRawDisk {
+                volume = "monitoring.raw";
                 target = "vda";
               })
             ];
@@ -132,8 +132,8 @@ in {
             memoryGiB = 16;
             nvramPath = "/persist/var/lib/libvirt/images/media.nvram";
             disks = [
-              (mkQcowDisk {
-                volume = "media.qcow2";
+              (mkRawDisk {
+                volume = "media.raw";
                 target = "vda";
               })
             ];
@@ -173,8 +173,8 @@ in {
             memoryGiB = 16;
             nvramPath = "/persist/var/lib/libvirt/images/builder.nvram";
             disks = [
-              (mkQcowDisk {
-                volume = "builder.qcow2";
+              (mkRawDisk {
+                volume = "builder.raw";
                 target = "vda";
               })
             ];

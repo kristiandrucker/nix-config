@@ -78,7 +78,7 @@ with lib; {
   mkVolume = {
     name,
     capacityGiB ? 64,
-    format ? "qcow2",
+    format ? "raw",
   }: {
     definition = inputs.NixVirt.lib.volume.writeXML {
       name = name;

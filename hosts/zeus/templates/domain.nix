@@ -114,13 +114,13 @@ with lib; {
               device = "disk";
               driver = {
                 name = "qemu";
-                type = "qcow2";
+                type = "raw";
                 cache = "none";
                 discard = "unmap";
               };
               source = {
                 pool = "default";
-                volume = "${name}.qcow2";
+                volume = "${name}.raw";
               };
               target = {
                 dev = "vda";
