@@ -1,11 +1,11 @@
 {pkgs, ...}: {
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_zen;
   # Enable firmware with redistributable license
   hardware.enableRedistributableFirmware = true;
 
   # Packages for all systems
   environment.systemPackages = with pkgs; [
-    #    linuxKernel.packages.linux_zen.perf
+  linuxKernel.packages.linux_zen.perf
 
     # System utilities
     curl
